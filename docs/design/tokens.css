@@ -15,8 +15,14 @@
       do not hardcode them. Check the multiplier form the file uses (see
       token-export.md, "Radius").
 
-   We had no repo access: values marked VERIFY and the font lines in section 4
-   are for Cian to confirm against the code (see token-export.md, "Open items").
+   We had no repo access: values marked VERIFY are for Cian to confirm against
+   the code (see token-export.md, "Open items").
+
+   Tested: we pasted sections 1-5 into a fresh Next.js + ShadCN base-nova app
+   (our "design lab"). Everything renders as in Penpot. Section 5 was scoped to
+   a .guest class there so only the guest preview turned lime; in captive-portal
+   it goes in :root as written. The radius multipliers (sm x0.6, md x0.8,
+   xl x1.4, 2xl x1.8) match base-nova, so 0.625rem gives 6 / 8 / 14 / 18.
 
    Source of every value: the converged Penpot file, boards DS 1 and DS 3
    (owner Samu; neutrals from Zipho). Hex in each comment is the Penpot swatch;
@@ -144,8 +150,20 @@
   --color-warning-foreground: var(--warning-foreground);
   --color-info: var(--info);
   --color-info-foreground: var(--info-foreground);
-  --font-sans: <the existing Roboto font variable>;      Cian: check how Roboto is loaded
-  --font-mono: <Roboto Mono font variable>;               add Roboto Mono if missing
+  --font-sans: var(--font-roboto);
+  --font-mono: var(--font-roboto-mono);
+
+  Fonts, as used in our lab: Roboto and Roboto Mono are loaded in
+  src/app/layout.tsx with next/font/google and exposed as --font-roboto and
+  --font-roboto-mono:
+    const roboto = Roboto({ subsets: ["latin"], weight: ["400","500","600","700"], variable: "--font-roboto" });
+    const robotoMono = Roboto_Mono({ subsets: ["latin"], variable: "--font-roboto-mono" });
+    <html lang="en" className={`${roboto.variable} ${robotoMono.variable}`}>
+  Put the variables on <html>, not <body>: globals.css applies font-sans on
+  html, which cannot see variables defined lower down on body.
+  Note: a fresh install sets --font-sans: var(--font-sans), which points at
+  itself and falls back to a serif font. Cian: check how the real clients
+  load Roboto and use their variable names if they differ.
 */
 
 

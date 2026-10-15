@@ -54,6 +54,18 @@ So that the Penpot file stays the single source of truth, Penpot was changed to 
 * Dialogs 512px (`sm:max-w-lg`).
 * Type rounded to Tailwind sizes: stat 30/36, guest title 24/32, overline 12, mono 14.
 * Six new variables for success, warning and info (ShadCN has none). **Needs Cian's approval.**
+* Controls are 40px (`h-10`), as in Penpot. ShadCN base-nova installs the button at 32px (`h-8`), so `button.tsx` changes; inputs and selects are already 40px.
+
+## Design lab (checking Part 2 without repo access)
+
+Charles suggested a small shared repo to see the tokens live. We built one: a fresh Next.js app with ShadCN set up exactly like the clients (style `base-nova`, base colour `neutral`, CSS variables on), `tokens.css` pasted into `globals.css`, and preview pages for every component (admin components, guest portal, colours and type). Nothing touches the AuraConnect codebase.
+
+What it confirmed:
+
+* The token values render as in Penpot, light and dark. The radius multipliers match, so `0.625rem` gives 6 / 8 / 14 / 18.
+* Fonts: Roboto and Roboto Mono load with `next/font/google` on the `<html>` tag as `--font-roboto` / `--font-roboto-mono` (now in `tokens.css` section 4). A fresh install points `--font-sans` at itself and falls back to a serif font.
+* 11 component changes for Cian, each seen in the lab (full list in `component-mapping.md`): button height and a solid destructive variant, sidebar active fill, line tabs, tinted destructive alert, success/warning/info badges and alerts, no grey band on card and dialog footers, toast styling, table header, interactive cards.
+* Two fixes were tried and work: the 40px button sizes, and the sidebar's blue active item (`data-active:bg-sidebar-primary`).
 
 ## Brief assumptions (§5)
 
@@ -62,7 +74,7 @@ All four hold: still Penpot (new converged file, originals kept); the policy lan
 Two deviations from the brief:
 
 * **§4:** we add six variables beyond the existing vocabulary (`--success`, `--warning`, `--info` and their `-foreground`) because ShadCN has no status colours.
-* **§6.4:** the brief asks us to check the real files in `src/components/ui`. We have no repo access, so the component mapping uses ShadCN's standard names, and the code-side checks are handed to Cian (below).
+* **§6.4:** the brief asks us to check the real files in `src/components/ui`. We have no repo access, so we checked every component against a fresh ShadCN base-nova install in our design lab instead (above). Cian only needs to confirm whether AuraConnect has customised any of them.
 
 ## Open items for Cian (need repo access)
 
@@ -71,9 +83,9 @@ Two deviations from the brief:
 |Baseline client|—|Which client's `globals.css` to compare against|
 |Primary blue|`#1447E6` (Phila and Zipho had `#1D4ED8`)|`--primary` in the baseline `globals.css`|
 |Brand lime|`#D6E600` (Samu's swatch had `#F4F419`)|captive-portal `globals.css`|
-|Fonts|Roboto, Roboto Mono|How Roboto is loaded; fill `tokens.css` section 4|
+|Fonts|Roboto, Roboto Mono via `next/font` on `<html>` (works in our lab)|Whether the real clients load Roboto the same way; use their variable names if not|
 |Guest code length|6 digits|OTP settings|
-|Component check|—|"Repo check for Cian" in `component-mapping.md`|
+|Component check|All rows checked in our lab|"Repo check for Cian" in `component-mapping.md`: confirm AuraConnect hasn't customised the primitives|
 |Six new status variables|proposed|Approve or reject|
 
 If anything found differs from our values, the code wins and we update Penpot to match.
@@ -88,7 +100,9 @@ All in `docs/design/`:
 * `component-mapping.md`: each component mapped to its ShadCN primitive and what changes.
 * `convergence-record.md`: this file.
 
+The design lab (live preview of the tokens and components) is in our shared Git repo, with these docs under `docs/design/`.
+
 ## Wrap-up walkthrough (brief §6.6)
 
-Together, before handing in: the converged system in Penpot, then `tokens.css` and `token-export.md`, then `component-mapping.md`, then `design-policy.md`.
+Together, before handing in: the converged system in Penpot, then `tokens.css` and `token-export.md` (shown live in the lab), then `component-mapping.md` (with the lab's preview pages), then `design-policy.md`.
 

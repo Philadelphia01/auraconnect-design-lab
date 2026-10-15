@@ -45,7 +45,7 @@ One shared system for admin, monitor and captive-portal. The only per-client dif
 - **One colour per status.** Each status has one token. Its tint and border are opacity steps, `bg-success/10` and `border-success/30`, and Penpot's tint and border swatches are now exactly those blends. No extra variables.
 - **Darker status colours.** The first Penpot draft (`#E7000B`, `#008236`, `#BB4D00`) measured 4.0–4.4:1 as text on its own tint, under the 4.5:1 minimum. The agreed values (`#C10007`, `#00753A`, `#A33F00`, `#0069A8`) pass on white and on their tints, and work as solid fills with white text. Penpot now uses them.
 - **Semantic extension.** ShadCN has no success, warning or info. We add exactly six variables (`--success`, `--warning`, `--info` and their `-foreground`), registered in `@theme inline` (`tokens.css` section 4). Everything else uses the existing vocabulary. **Needs Cian's approval.**
-- **Dark mode is derived, not designed.** Nobody designed dark mode in Penpot. Neutrals follow ShadCN "neutral" dark; brand hues are lifted for contrast. Review before release.
+- **Dark mode is derived, not designed.** Nobody designed dark mode in Penpot. Neutrals follow ShadCN "neutral" dark; brand hues are lifted for contrast. Checked in our design lab: text, buttons, badges, inputs and errors are all readable. Still needs a Penpot review before release.
 
 ## Radius
 
@@ -59,7 +59,7 @@ One shared system for admin, monitor and captive-portal. The only per-client dif
 | `rounded-2xl` | 18 | Guest-portal cards |
 | `rounded-full` | — | Pills, badges, toggles, guest buttons |
 
-These are the multiplier form (`--radius-sm` = 0.6 × `--radius`, and so on). If the file uses the older subtraction form, `sm`, `md` and `xl` come out the same; only `2xl` differs.
+These are the multiplier form (`--radius-sm` = 0.6 × `--radius`, and so on), which is what ShadCN base-nova uses: confirmed in our design lab. If an older client file uses the subtraction form, `sm`, `md` and `xl` come out the same; only `2xl` differs.
 
 ## Typography
 
@@ -80,7 +80,7 @@ No CSS variables needed: every level is a Tailwind size, and Penpot was set to t
 | mono-sm | 12/16 | `font-mono text-xs` |
 | guest-title | 24/32 · 700 | `text-2xl font-bold` |
 
-Font: Roboto (`font-sans`), Roboto Mono (`font-mono`). Check how Roboto is loaded today and add Roboto Mono the same way.
+Font: Roboto (`font-sans`), Roboto Mono (`font-mono`). In our design lab they load with `next/font/google` in `layout.tsx`, with the variables on the `<html>` tag (`--font-roboto`, `--font-roboto-mono`), and `@theme inline` points `--font-sans` / `--font-mono` at them (`tokens.css` section 4). Put the variables on `<html>`, not `<body>`: the base styles apply `font-sans` on `html`, which can't see variables set lower down.
 
 ## Spacing and layout
 
@@ -99,13 +99,13 @@ The Penpot scale is Tailwind's default 4px scale, so no tokens are needed: `spac
 
 ## Open items for Cian
 
-We don't have repo access, so these values come from our Penpot work, not from the code. Each is a quick look at a `globals.css` before pasting.
+We don't have repo access, so these values come from our Penpot work. We tested all of them in our design lab (a fresh ShadCN base-nova app with `tokens.css` pasted in) and they render as in Penpot, but only the real `globals.css` can say whether AuraConnect already uses different values. Each check is a quick look before pasting.
 
 | Item | Value in this export | Check | Found |
 |---|---|---|---|
 | Baseline client | — | Which client's `src/app/globals.css` to compare against (the three set tokens separately) | |
 | Primary blue | `#1447E6` | `--primary` in the baseline `globals.css` (Phila and Zipho had `#1D4ED8`) | |
 | Brand lime | `#D6E600` | captive-portal `globals.css` (Samu's brand swatch had `#F4F419`) | |
-| Fonts | Roboto, Roboto Mono | How Roboto is loaded (usually `layout.tsx`); fill the two font lines in `tokens.css` section 4 | |
+| Fonts | Roboto, Roboto Mono (`next/font`, on `<html>`; works in our lab) | Whether the real clients load Roboto the same way; if their variable names differ, use those in `tokens.css` section 4 | |
 
 If a found value differs from ours, use the code's value and tell us, so we can update Penpot to match.

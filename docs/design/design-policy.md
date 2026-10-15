@@ -35,6 +35,7 @@ Guest pages (`captive-portal`) override `--primary` to brand lime with dark text
 - Primary actions are lime: Button `default` with size `guest` (48px, fully rounded).
 - The page band below the header is navy (`bg-secondary text-secondary-foreground`).
 - Text on lime is always `text-primary-foreground` (dark). Never white on lime.
+- Text links on guest pages ("Change number", "Resend code") are navy: `text-secondary`. Never use Button `link` as is, because `text-primary` is lime there and unreadable on white.
 - Lime never appears in admin or monitor. Admin blue never appears on guest pages.
 
 ## 3. Typography
@@ -81,13 +82,13 @@ Tables and widgets also need: **loading** (skeleton), **empty** (say what is mis
 ## 6. Component rules
 
 - **Buttons:** one primary per screen or dialog. Cancel sits left of the primary action. Labels say exactly what happens ("Save settings", "Create tenant"), never "Submit" or "OK".
-- **Destructive actions:** pages use the soft destructive button to open a confirm dialog (`alert-dialog`). Only the dialog has the solid destructive button, and for deleting a record it stays disabled until the user types the record's name.
+- **Destructive actions:** pages use the soft destructive button (Button `destructive`) to open a confirm dialog (`alert-dialog`). Only the dialog has the solid destructive button (Button `destructive-solid`), and for deleting a record it stays disabled until the user types the record's name.
 - **Forms:** label above every field (required fields end in " *"). Helper text below; an error replaces the helper text and says how to fix it ("Enter a whole number of minutes, or leave blank"). On a failed save, also show an error toast or an alert at the top of the form.
 - **Lists:** default to a table. Cards are an optional view behind a Cards/Table toggle.
 - **Alerts** sit inline and stay until resolved. **Toasts** confirm an action, top-right, dismiss after 5 seconds; error toasts stay until closed. One toast at a time.
-- **Dialogs** are 512px wide (`sm:max-w-lg`), title + optional one-line description, footer with a top border.
+- **Dialogs** are 512px wide (`sm:max-w-lg`), title + optional one-line description, white footer with a top border (no grey band).
 - **Navigation:** active sidebar item is a solid primary fill with white text. Sub-pages of one record use underline tabs (`line` variant).
-- **Guest verification codes** are 6 digits, one box per digit.
+- **Guest verification codes** are 6 digits, one separate box per digit, digits only (numeric keypad on phones).
 
 ## 7. Don't
 
