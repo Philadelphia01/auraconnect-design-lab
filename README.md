@@ -20,6 +20,19 @@ Last week's design exercise produced three separate sets of deliverables (one pe
 We don't have access to the AuraConnect repo, so (on Charles's suggestion) we built this lab: a fresh Next.js app configured exactly like the AuraConnect clients, with our tokens pasted into `globals.css` and preview pages for every component. It let us confirm that the tokens render as designed in Penpot, in light and dark mode, before handing over.
 
 ## What's in here
+##Project Structure
+
+auraconnect-design-lab/
+├── public/            # Static assets
+├── src/
+│   ├── components/    # Reusable UI components
+│   ├── pages/         # Page-level views
+│   ├── assets/        # Images, icons, fonts
+│   ├── styles/        # Global styles and design tokens
+│   └── main.tsx       # Application entry point
+├── index.html
+├── package.json
+└── README.md
 
 ### Design documentation: `docs/design/`
 
