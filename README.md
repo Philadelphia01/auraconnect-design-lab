@@ -5,7 +5,7 @@ A sandbox for the **AuraConnect Design System Convergence** exercise. It holds t
 > **Confidential.** Prepared by VegaVision Software for the AuraConnect team. Keep this repository private.
 
 **Status:** for review (submitted Friday 16 October 2026). Nothing here is wired into any AuraConnect client yet.
-**Team:** Samu, Phila and Zipho.
+**Team:** Samu,Phila and Zipho.
 **Reviewer / handover:** Cian.
 
 ---
@@ -52,6 +52,44 @@ The converged Penpot file is the single source of truth for the design; the thre
 | `02 Layout guide.pdf` | Wireframe templates B1–B5 (one per mockup page) |
 | `03 Mockups.pdf` | The five pages at full fidelity, with modals and error states |
 | `04 Flow map.pdf` | Admin and guest portals end to end, with branches and loop-backs |
+
+## Project structure
+
+```text
+auraconect-design-lab/
+├── docs/
+│   └── design/                      # Lands in AuraConnect's docs/design/ once approved
+│       ├── design-policy.md         # The rulebook (read before any styling task)
+│       ├── tokens.css               # Paste-ready token values, light + dark + captive-portal override
+│       ├── token-export.md          # Where each value comes from
+│       ├── component-mapping.md     # Component → ShadCN primitive, and what changes
+│       └── convergence-record.md    # Who owned what, and why each decision was made
+├── penpot/                          # Penpot exports (PDF)
+│   ├── 01 Design System.pdf
+│   ├── 02 Layout guide.pdf
+│   ├── 03 Mockups.pdf
+│   └── 04 Flow map.pdf
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx               # Loads Roboto / Roboto Mono via next/font on <html>
+│   │   ├── globals.css              # ShadCN tokens, with tokens.css sections 1–5 pasted in
+│   │   ├── page.tsx                 # Index of the preview pages
+│   │   ├── admin/                   # Preview: admin components
+│   │   ├── guest/                   # Preview: guest portal (scoped .guest override)
+│   │   └── tokens/                  # Preview: colours and type
+│   ├── components/
+│   │   └── ui/                      # ShadCN base-nova primitives (button, input, select, table,
+│   │                                #   card, badge, alert, sidebar, tabs, dialog, alert-dialog,
+│   │                                #   input-otp, sonner, chart, checkbox, label, …)
+│   └── lib/
+│       └── utils.ts                 # ShadCN cn() helper
+├── components.json                  # ShadCN config: style base-nova, base colour neutral, CSS variables on
+├── package.json
+├── tsconfig.json
+└── README.md
+```
+
+The `src/components/ui` files are a fresh base-nova install, with only the lab trials applied (40px button sizes, solid sidebar active fill). They are for comparison, not the implementation; the full list of intended changes is in `component-mapping.md`.
 
 ## Running the lab
 
@@ -122,5 +160,3 @@ If anything in the real code differs from our values, **the code wins** and we u
 ## Scope of this repo
 
 This lab exists only to preview and verify the design. It does not modify the AuraConnect codebase, and its component tweaks are illustrations for review, not the implementation.
-
-
