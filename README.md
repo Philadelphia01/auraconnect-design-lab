@@ -5,7 +5,7 @@ A sandbox for the **AuraConnect Design System Convergence** exercise. It holds t
 > **Confidential.** Prepared by VegaVision Software for the AuraConnect team. Keep this repository private.
 
 **Status:** for review (submitted Friday 16 October 2026). Nothing here is wired into any AuraConnect client yet.
-**Team:** Samu, Phila andZipho.
+**Team:** Samu, Phila and Zipho.
 **Reviewer / handover:** Cian.
 
 ---
@@ -57,12 +57,12 @@ The converged Penpot file is the single source of truth for the design; the thre
 
 You need Node.js and npm.
 
-
+```bash
 git clone <repo-url> auraconect-design-lab
 cd auraconect-design-lab
 npm install
 npm run dev
-
+```
 
 Then open [http://localhost:3000](http://localhost:3000) and use the preview pages. Toggle your system theme to check dark mode, and use **Tab** to check keyboard focus.
 
